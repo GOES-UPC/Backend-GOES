@@ -3,6 +3,7 @@ package com.simplife.skip.services.implementation;
 import com.simplife.skip.models.Reporte;
 import com.simplife.skip.models.Usuario;
 import com.simplife.skip.models.Viaje;
+import com.simplife.skip.payload.requests.ReportRequest;
 import com.simplife.skip.repositories.ReporteRepository;
 import com.simplife.skip.repositories.UsuarioRepository;
 import com.simplife.skip.repositories.ViajeRepository;
@@ -26,16 +27,20 @@ public class ReporteServiceImpl implements ReporteService {
         this.viajeRepository = viajeRepository;
     }
 
-    public Reporte publicarReporte(Reporte nuevoReporte, Long usuarioId, Long viajeId) throws Exception{
+    public Reporte publicarReporte(ReportRequest nuevoReporte, Long usuarioId, Long viajeId) throws Exception{
         Usuario usuario;
         Viaje viaje;
-        Reporte reporte;
+        Reporte reporte = new Reporte();
         try{
             usuario = this.usuarioRepository.findById(usuarioId).get();
             viaje = this.viajeRepository.findById(viajeId).get();
-            nuevoReporte.setUsuario(usuario);
-            nuevoReporte.setViaje(viaje);
-            reporte = this.reporteRepository.save(nuevoReporte);
+            reporte.setContenido(nuevoReporte.getMensaje());
+            reporte.setValoracion(nuevoReporte.getCalificacion());
+            reporte.setTipo_reporte(true);
+            reporte.setEstado_tabla(true);
+            reporte.setUsuario(usuario);
+            reporte.setViaje(viaje);
+            reporte = this.reporteRepository.save(reporte);
         }catch(Exception e){
             throw e;
         }
