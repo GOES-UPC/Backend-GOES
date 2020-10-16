@@ -48,6 +48,11 @@ class SolicitudServiceImpl implements SolicitudService {
             if (parada == null){
                 parada = this.paradaRepository.save(parada);
             }*/
+           //SI EL CONDUCTOR TRATA DE SOLICITARSE A SI MISMO, RETORNA UNA SOLICITUD VACÍA
+            Viaje aux = this.viajeRepository.findById(viajeId).get();
+            if(aux.getConductor().getId() == pasajeroId){
+                return new Solicitud();
+            }
             Parada auxParada = this.paradaRepository.buscarPorLatYLong(parada.getLatitud(), parada.getLongitud());
             if(auxParada == null){
                 auxParada = this.paradaRepository.save(parada);

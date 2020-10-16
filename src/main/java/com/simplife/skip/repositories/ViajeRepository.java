@@ -13,7 +13,8 @@ import java.util.List;
 
 public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 
-    @Query("SELECT v FROM Viaje v INNER JOIN Solicitud s ON v.id = s.viaje.id INNER JOIN Usuario u ON u.id = s.pasajero.id" +
+
+    @Query("SELECT v FROM Viaje v JOIN Solicitud s ON v.id = s.viaje.id JOIN Usuario u ON u.id = s.pasajero.id" +
             " WHERE u.id = ?1 ORDER BY v.fechaViaje DESC")
     List<Viaje> listarPorPasajero(Long usuarioPasajeroId);
 
@@ -48,6 +49,7 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
             "JOIN Ruta r ON i.ruta.id = r.id JOIN Viaje v ON v.ruta.id = r.id WHERE v.id = ?1" +
             " ORDER BY p.id asc")
     List<Parada> listarParadasPorViajeId(Long viajeId) throws Exception;
+
 
 
 }

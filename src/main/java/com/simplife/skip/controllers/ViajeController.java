@@ -41,8 +41,13 @@ public class ViajeController {
     }
 
     @GetMapping("/conductor/{conductorId}")
-    public List<Viaje> listarViajesPorConductor(@PathVariable("conductorId") Long conductorId) throws Exception{
+    public List<ViajeInicio> listarViajesPorConductor(@PathVariable("conductorId") Long conductorId) throws Exception{
         return this.viajeService.listarViajesPorConductor(conductorId);
+    }
+
+    @GetMapping("/pasajero/{pasajeroId}")
+    public List<ViajeInicio> listarViajesPorPasajero(@PathVariable("pasajeroId") Long pasajeroId) throws Exception{
+        return this.viajeService.listarViajesPorPasajero(pasajeroId);
     }
 
     @GetMapping("/{id}")

@@ -6,6 +6,7 @@ import com.simplife.skip.payload.requests.PasajeroEnLista;
 import com.simplife.skip.payload.requests.ViajeInicio;
 import com.simplife.skip.payload.requests.ViajeRequest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface ViajeService {
 
     List<Viaje> obtenerViajes() throws Exception;
         //usuarioConductorId es id de usuario de algún conductor
-    List<Viaje> listarViajesPorConductor(Long usuarioConductorId) throws Exception;
+    List<ViajeInicio> listarViajesPorConductor(Long usuarioConductorId) throws Exception;
+
+    List<ViajeInicio> listarViajesPorPasajero(@PathVariable("pasajeroId") Long pasajeroId) throws Exception;
 
     //Actualizar la fecha de viaje
     @Transactional
@@ -30,7 +33,6 @@ public interface ViajeService {
     Viaje listarViajePorId(Long viajeId) throws Exception;
 
     List<ViajeInicio> listarViajesInicio() throws Exception;
-
 
     List<PasajeroEnLista> listarPasajerosPorViajeId(Long viajeId) throws Exception;
 

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.simplife.skip.models.Parada;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -112,14 +114,34 @@ public class ViajeServiceImpl implements ViajeService {
     }
 
     @Override
-    public List<Viaje> listarViajesPorConductor(Long usuarioConductorId) throws Exception {
-        List<Viaje> listaViajesPorConductor;
+    public List<ViajeInicio> listarViajesPorConductor(Long usuarioConductorId) throws Exception {
+        List<ViajeInicio> listaViajesInicio = new ArrayList<>();
         try{
-            listaViajesPorConductor = this.viajeRepository.listarPorConductor(usuarioConductorId);
+
+            List<Viaje> listaViajesPorConductor = this.viajeRepository.listarPorConductor(usuarioConductorId);
+            for(Viaje viaje: listaViajesPorConductor){
+                ViajeInicio viajeInicio = this.crearViajeInicio(viaje);
+                listaViajesInicio.add(viajeInicio);
+            }
         }catch(Exception e){
             throw e;
         }
-        return listaViajesPorConductor;
+        return listaViajesInicio;
+    }
+
+    @Override
+    public List<ViajeInicio> listarViajesPorPasajero(Long pasajeroId) throws Exception{
+        List<ViajeInicio> listaViajes = new ArrayList<>();
+        try{
+            List<Viaje> auxViajes = this.viajeRepository.listarPorPasajero(pasajeroId);
+            for(Viaje viaje: auxViajes){
+                ViajeInicio viajeInicio = this.crearViajeInicio(viaje);
+                listaViajes.add(viajeInicio);
+            }
+        }catch(Exception e){
+            throw e;
+        }
+        return listaViajes;
     }
 
     @Override
@@ -157,16 +179,7 @@ public class ViajeServiceImpl implements ViajeService {
         List<Viaje> viajes = this.viajeRepository.listarViajesInicio();
         List<ViajeInicio> viajesInicio = new ArrayList<>();
         for(Viaje viaje: viajes){
-            List<Parada> paradas = this.viajeRepository.listarParadasPorViajeId(viaje.getId());
-            ViajeInicio viajeInicio = new ViajeInicio();
-            viajeInicio.setId(viaje.getId());
-            viajeInicio.setImagen(viaje.getConductor().getImagen());
-            viajeInicio.setDescripcion(viaje.getDescripcion());
-            viajeInicio.setFechaPublicacion(viaje.getFechaPublicacion().toString());
-            viajeInicio.setHoraFin(viaje.getHoraLlegada().toString());
-            viajeInicio.setHoraInicio(viaje.getHoraInicio().toString());
-            viajeInicio.setNombres(viaje.getConductor().getNombres() + " " + viaje.getConductor().getApellidos());
-            viajeInicio.setParadas(paradas);
+            ViajeInicio viajeInicio = this.crearViajeInicio(viaje);
             viajesInicio.add(viajeInicio);
         }
 
@@ -178,7 +191,6 @@ public class ViajeServiceImpl implements ViajeService {
     public List<PasajeroEnLista> listarPasajerosPorViajeId(Long viajeId) throws Exception{
         List<Usuario> pasajerosRegistrados = new ArrayList<>();
         List<PasajeroEnLista> pasajerosEnLista = new ArrayList<>();
-
 
         try{
             pasajerosRegistrados = this.viajeRepository.listarPasajerosRegistradosDelViaje(viajeId);
@@ -210,5 +222,24 @@ public class ViajeServiceImpl implements ViajeService {
             throw e;
         }
         return listaViajesPorPasajero;
+    }
+
+    private ViajeInicio crearViajeInicio(Viaje viaje) throws Exception{
+        ViajeInicio viajeInicio = new ViajeInicio();
+        try{
+            List<Parada> paradas = this.viajeRepository.listarParadasPorViajeId(viaje.getId());
+            viajeInicio.setId(viaje.getId());
+            viajeInicio.setImagen(viaje.getConductor().getImagen());
+            viajeInicio.setDescripcion(viaje.getDescripcion());
+            viajeInicio.setFechaPublicacion(viaje.getFechaPublicacion().toString());
+            viajeInicio.setHoraFin(viaje.getHoraLlegada().toString());
+            viajeInicio.setHoraInicio(viaje.getHoraInicio().toString());
+            viajeInicio.setNombres(viaje.getConductor().getNombres() + " " + viaje.getConductor().getApellidos());
+            viajeInicio.setParadas(paradas);
+        } catch(Exception ex){
+            throw ex;
+        }
+        return viajeInicio;
+
     }
 }
