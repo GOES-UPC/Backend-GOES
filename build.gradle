@@ -1,0 +1,66 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'java'
+    id 'groovy'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+apply plugin: 'application'
+
+group = 'com.myorg.upcride'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+mainClassName="com.simplife.skip.Application"
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    //compile.exclude module: 'spring-boot-starter-tomcat'
+    //compile.exclude group: 'org.apache.tomcat'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
+    
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.3.1.RELEASE'
+    compile("org.springframework.boot:spring-boot-starter-websocket") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    compile group: 'org.springframework', name: 'spring-context', version: '5.1.14.RELEASE'
+    compile group: 'io.cucumber', name: 'cucumber-spring', version: '2.3.0'
+
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    compile 'com.google.cloud.sql:mysql-socket-factory-connector-j-8:1.0.16'
+
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+
+
+
+ 
+
+
+}
