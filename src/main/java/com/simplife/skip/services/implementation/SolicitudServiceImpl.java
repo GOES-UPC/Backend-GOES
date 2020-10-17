@@ -84,9 +84,11 @@ class SolicitudServiceImpl implements SolicitudService {
     }
 
     @Transactional
-    public int actualizarEstadoPasajero(Long solicitudId, Long pasajeroId, String estado) throws Exception{
-        return this.actualizarEstadoPasajero(solicitudId, pasajeroId, estado);
+    public int actualizarEstadoPasajero(Long viajeId, Long pasajeroId, String estado) throws Exception{
+        return this.solicitudRepository.actualizarEstadoPasajero(estado, viajeId, pasajeroId);
     }
+
+
 
     @Override
     public List<Solicitud> listarSolicitudesPorUsuario(Long usuarioId) throws Exception{

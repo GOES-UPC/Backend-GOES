@@ -11,8 +11,8 @@ import java.util.List;
 public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
 
     @Modifying
-    @Query("UPDATE Solicitud s SET s.estadoPasajero = ?1 where s.id = ?2 and s.pasajero.id = ?3")
-    int actualizarEstadoPasajero(String estado, Long solicitudId, Long clienteId);
+    @Query("UPDATE Solicitud s SET s.estadoPasajero = ?1 where s.viaje.id = ?2 and s.pasajero.id = ?3")
+    int actualizarEstadoPasajero(String estado, Long viajeId, Long pasajeroId);
 
     @Query("SELECT s FROM Solicitud s WHERE s.pasajero.id = ?1")
     List<Solicitud> listarSolicitudesPorUsuario(Long usuarioId);

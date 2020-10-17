@@ -248,6 +248,7 @@ public class ViajeServiceImpl implements ViajeService {
             viajeInicio.setHoraFin(viaje.getHoraLlegada().toString());
             viajeInicio.setHoraInicio(viaje.getHoraInicio().toString());
             viajeInicio.setNombres(viaje.getConductor().getNombres() + " " + viaje.getConductor().getApellidos());
+            viajeInicio.setEstadoViaje(viaje.getEstadoViaje());
             viajeInicio.setParadas(paradas);
         } catch(Exception ex){
             throw ex;

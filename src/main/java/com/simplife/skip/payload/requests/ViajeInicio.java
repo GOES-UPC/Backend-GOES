@@ -21,5 +21,6 @@ public class ViajeInicio {
     private List<Parada> paradas;
     private String horaInicio;
     private String horaFin;
+    private String estadoViaje;
 
 }

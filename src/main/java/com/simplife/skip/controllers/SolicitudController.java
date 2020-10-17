@@ -31,12 +31,11 @@ public class SolicitudController {
         return this.solicitudService.procesarSolicitud(solicitud);
     }
 
-    @PutMapping("/{solicitudId}")
-    @Transactional
-    public int actualizarEstadoPasajero(@PathVariable("solicitudId") Long solicitudId,
+    @PutMapping
+    public int actualizarEstadoPasajero(@RequestParam("viajeId") Long viajeId,
                                         @RequestParam("pasajeroId") Long pasajeroId,
                                         @RequestParam("estado") String estado) throws Exception{
-        return this.solicitudService.actualizarEstadoPasajero(solicitudId,pasajeroId,estado);
+        return this.solicitudService.actualizarEstadoPasajero(viajeId,pasajeroId,estado);
     }
 
     @GetMapping("/usuario/{id}")
