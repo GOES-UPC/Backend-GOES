@@ -38,6 +38,11 @@ public class SolicitudController {
         return this.solicitudService.actualizarEstadoPasajero(viajeId,pasajeroId,estado);
     }
 
+    @PutMapping("pasajeros/endestino")
+    public int actualizarPasajerosEnDestino(@RequestParam("viajeId") Long viajeId) throws Exception{
+        return this.solicitudService.actualizarPasajerosEnDestino(viajeId);
+    }
+
     @GetMapping("/usuario/{id}")
     public List<Solicitud> mostrarSolicitudesPorUsuario(@PathVariable("id") Long usuarioId) throws Exception{
         return this.solicitudService.listarSolicitudesPorUsuario(usuarioId);

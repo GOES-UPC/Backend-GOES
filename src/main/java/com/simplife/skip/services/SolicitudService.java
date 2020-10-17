@@ -4,6 +4,7 @@ package com.simplife.skip.services;
 import com.simplife.skip.models.Solicitud;
 import com.simplife.skip.payload.requests.SolicitudRequest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface SolicitudService {
 
 
     public List<Solicitud> listarSolicitudesPorConductor(Long conductorId) throws Exception;
+
+    int actualizarPasajerosEnDestino(Long viajeId) throws Exception;
 
 }

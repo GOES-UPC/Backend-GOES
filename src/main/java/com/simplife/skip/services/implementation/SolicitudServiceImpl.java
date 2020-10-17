@@ -100,6 +100,12 @@ class SolicitudServiceImpl implements SolicitudService {
         return this.solicitudRepository.listarSolicitudesPorConductor(conductorId);
     }
 
+    @Transactional
+    @Override
+    public int actualizarPasajerosEnDestino(Long viajeId) throws Exception{
+        return this.solicitudRepository.actualizarPasajerosAEnDestino(viajeId);
+    }
+
 
 
 
