@@ -182,9 +182,22 @@ public class ViajeServiceImpl implements ViajeService {
             ViajeInicio viajeInicio = this.crearViajeInicio(viaje);
             viajesInicio.add(viajeInicio);
         }
-
         return viajesInicio;
 
+    }
+
+    @Override
+    public ViajeInicio listarViajeInicioPorId(Long viajeId) throws Exception {
+        List<Viaje> viajes = this.viajeRepository.listarViajesInicio();
+        ViajeInicio viajeInicio;
+        for(Viaje viaje: viajes){
+            if(viaje.getId() == viajeId)
+            {
+                viajeInicio = this.crearViajeInicio(viaje);
+                return viajeInicio;
+            }
+        }
+        return null;
     }
 
     @Override

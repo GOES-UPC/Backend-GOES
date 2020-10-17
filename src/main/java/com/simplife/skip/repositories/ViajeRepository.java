@@ -41,6 +41,7 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 
    /* @Query("SELECT v FROM Viaje v JOIN Ruta r ON r.id = v.ruta.id "
     + "JOIN Itinerario i ON i.ruta.id = r.id")*/
+
     @Query("SELECT v FROM Usuario u JOIN Viaje v ON u.id = v.conductor.id\n" +
             "JOIN Ruta r ON r.id = v.ruta.id order by v.id desc")
     List<Viaje> listarViajesInicio() throws Exception;

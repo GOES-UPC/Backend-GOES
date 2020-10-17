@@ -80,4 +80,9 @@ public class ViajeController {
         return viajeService.listarViajesInicio();
     }
 
+    @GetMapping("/inicio/{viajeId}")
+    public ViajeInicio listarViajesInicioPorId(@PathVariable("viajeId") Long viajeId) throws Exception{
+        return viajeService.listarViajeInicioPorId(viajeId);
+    }
+
 }
