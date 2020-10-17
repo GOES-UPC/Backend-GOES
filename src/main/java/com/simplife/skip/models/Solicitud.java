@@ -55,6 +55,21 @@ public class Solicitud implements Serializable {
     @Column(name = "estado_tabla")
     private boolean estadoTabla;
 
+    @Override
+    public String toString() {
+        return "Solicitud{" +
+                "id=" + id +
+                ", mensaje='" + mensaje + '\'' +
+                ", fechaSolicitud=" + fechaSolicitud +
+                ", horaSolicitud=" + horaSolicitud +
+                ", pasajero=" + pasajero +
+                ", viaje=" + viaje +
+                ", estadoPasajero='" + estadoPasajero + '\'' +
+                ", parada=" + parada +
+                ", estadoTabla=" + estadoTabla +
+                '}';
+    }
+
     public Solicitud(String mensaje, Usuario pasajero, Viaje viaje, Parada parada){
         this.mensaje = mensaje;
         this.parada = parada;

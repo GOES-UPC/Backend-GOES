@@ -54,14 +54,14 @@ class SolicitudServiceImpl implements SolicitudService {
                 return new Solicitud();
             }
             Parada auxParada = this.paradaRepository.buscarPorLatYLong(parada.getLatitud(), parada.getLongitud());
+
             if(auxParada == null){
                 auxParada = this.paradaRepository.save(parada);
             }
-            solicitudNueva.setParada(auxParada);
 
             Usuario pasajero = this.usuarioRepository.findById(pasajeroId).get();
             Viaje viaje = this.viajeRepository.findById(viajeId).get();
-            solicitudNueva = new Solicitud(mensaje, pasajero, viaje, parada);
+            solicitudNueva = new Solicitud(mensaje, pasajero, viaje, auxParada);
 
             DateTimeFormatter dtfFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
