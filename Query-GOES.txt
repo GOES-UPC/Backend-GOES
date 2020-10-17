@@ -1,0 +1,2 @@
+INSERT INTO rol(nombre,estado_tabla) VALUES('ROL_CONDUCTOR', 1);
+INSERT INTO rol(nombre,estado_tabla) VALUES('ROL_PASAJERO', 1);
