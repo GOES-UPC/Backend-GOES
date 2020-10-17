@@ -1,6 +1,7 @@
 package com.simplife.skip.controllers;
 
 import com.simplife.skip.models.Reporte;
+import com.simplife.skip.payload.requests.ReportRequest;
 import com.simplife.skip.services.ReporteService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class ReporteController {
     }
 
     @PostMapping
-    public Reporte publicarReporte(@RequestBody Reporte nuevoReporte,
+    public Reporte publicarReporte(@RequestBody ReportRequest nuevoReporte,
                                    @RequestParam("usuarioId") Long usuarioId,
                                    @RequestParam("viajeId") Long viajeId) throws Exception{
 
@@ -27,7 +28,7 @@ public class ReporteController {
 
     @GetMapping
     public List<Reporte> listarReportesPorViaje(@RequestParam("viajeId") Long viajeId) throws Exception{
-        return this.listarReportesPorViaje(viajeId);
+        return this.reporteService.listarReportePorViaje(viajeId);
     }
 
 }
