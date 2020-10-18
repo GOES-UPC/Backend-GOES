@@ -29,10 +29,10 @@ public class ViajeController {
         return this.viajeService.insertarViaje(viaje);
     }
 
-    @GetMapping
+    /*@GetMapping
     public List<Viaje> visualizarViajes() throws Exception{
         return this.viajeService.obtenerViajes();
-    }
+    }*/
 
     @PutMapping("/{viajeId}/actualizarFecha")
     public int actualizarFechaViaje(@RequestBody String fecha,
@@ -50,10 +50,10 @@ public class ViajeController {
         return this.viajeService.listarViajesPorPasajero(pasajeroId);
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public Viaje listarViajesPorId(@PathVariable("id") Long viajeId) throws Exception{
         return this.viajeService.listarViajePorId(viajeId);
-    }
+    }*/
 
     @Transactional
     @PutMapping("actualizar/{viajeId}")
