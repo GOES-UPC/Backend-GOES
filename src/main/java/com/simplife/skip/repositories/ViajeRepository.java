@@ -15,12 +15,12 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 
 
     @Query("SELECT v FROM Viaje v JOIN Solicitud s ON v.id = s.viaje.id JOIN Usuario u ON u.id = s.pasajero.id" +
-            " WHERE u.id = ?1 ORDER BY v.fechaViaje DESC")
+            " WHERE u.id = ?1 ORDER BY v.id DESC")
     List<Viaje> listarPorPasajero(Long usuarioPasajeroId);
 
 
     @Query("SELECT v FROM Viaje v INNER JOIN Usuario u ON v.conductor.id = u.id" +
-            " WHERE u.id = ?1 ORDER BY v.fechaViaje DESC")
+            " WHERE u.id = ?1 ORDER BY v.id DESC")
     List<Viaje> listarPorConductor(Long usuarioConductorId);
 
 

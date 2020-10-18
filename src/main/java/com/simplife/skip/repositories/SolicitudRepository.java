@@ -14,10 +14,10 @@ public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
     @Query("UPDATE Solicitud s SET s.estadoPasajero = ?1 where s.viaje.id = ?2 and s.pasajero.id = ?3")
     int actualizarEstadoPasajero(String estado, Long viajeId, Long pasajeroId);
 
-    @Query("SELECT s FROM Solicitud s WHERE s.pasajero.id = ?1")
+    @Query("SELECT s FROM Solicitud s WHERE s.pasajero.id = ?1 ORDER BY s.id DESC")
     List<Solicitud> listarSolicitudesPorUsuario(Long usuarioId);
 
-    @Query("SELECT s FROM Solicitud s JOIN Viaje v ON s.viaje.id = v.id JOIN Usuario u ON v.conductor.id = u.id Where v.conductor.id = ?1")
+    @Query("SELECT s FROM Solicitud s JOIN Viaje v ON s.viaje.id = v.id JOIN Usuario u ON v.conductor.id = u.id Where v.conductor.id = ?1 ORDER BY s.id DESC")
     List<Solicitud> listarSolicitudesPorConductor(Long conductorId);
 
     @Query("SELECT s FROM Solicitud s JOIN Viaje v ON s.viaje.id = v.id JOIN Usuario u ON s.pasajero.id = u.id WHERE u.id = ?1 AND v.id = ?2")
