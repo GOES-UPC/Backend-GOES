@@ -1,6 +1,7 @@
 package com.simplife.skip.services.implementation;
 
 import com.simplife.skip.models.*;
+import com.simplife.skip.payload.requests.ConductorDeViajeResponse;
 import com.simplife.skip.payload.requests.PasajeroEnLista;
 import com.simplife.skip.payload.requests.ViajeInicio;
 import com.simplife.skip.payload.requests.ViajeRequest;
@@ -255,5 +256,10 @@ public class ViajeServiceImpl implements ViajeService {
         }
         return viajeInicio;
 
+    }
+    @Override
+    public ConductorDeViajeResponse obtenerConductorPorPasajero(Long pasajeroId)
+            throws Exception{
+        return this.viajeRepository.listarConductorActualPorPasajero(pasajeroId);
     }
 }

@@ -27,7 +27,7 @@ public class Auto implements Serializable {
     private String placa;
 
     @Column(name = "poliza_soat")
-    private int polizaSoat;
+    private String polizaSoat;
 
     @Column(name = "marca")
     private String marca;

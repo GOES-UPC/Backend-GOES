@@ -3,6 +3,7 @@ package com.simplife.skip.repositories;
 import com.simplife.skip.models.Usuario;
 import com.simplife.skip.models.Viaje;
 import com.simplife.skip.models.Parada;
+import com.simplife.skip.payload.requests.ConductorDeViajeResponse;
 import com.simplife.skip.payload.requests.ViajeInicio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,6 +18,7 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     @Query("SELECT v FROM Viaje v JOIN Solicitud s ON v.id = s.viaje.id JOIN Usuario u ON u.id = s.pasajero.id" +
             " WHERE u.id = ?1 ORDER BY v.id DESC")
     List<Viaje> listarPorPasajero(Long usuarioPasajeroId);
+
 
 
     @Query("SELECT v FROM Viaje v INNER JOIN Usuario u ON v.conductor.id = u.id" +
@@ -52,5 +54,9 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     List<Parada> listarParadasPorViajeId(Long viajeId) throws Exception;
 
 
+    @Query("SELECT new com.simplife.skip.payload.requests.ConductorDeViajeResponse(u.id, u.nombres, a.placa, a.modelo) FROM Auto a JOIN InformacionConductor i ON a.infoConductor.id = i.id " +
+            "JOIN Usuario u ON u.id = i.usuario.id JOIN Viaje v ON u.id = v.conductor.id WHERE " +
+            "v.id = (SELECT MIN(s.id) FROM Viaje v1 JOIN Solicitud s ON v1.id = s.viaje.id WHERE s.pasajero.id = ?1 AND v1.estadoViaje = 'PUBLICADO')")
+    ConductorDeViajeResponse listarConductorActualPorPasajero(Long pasajeroId) throws Exception;
 
 }

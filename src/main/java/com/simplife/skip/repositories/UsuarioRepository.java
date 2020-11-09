@@ -11,5 +11,7 @@ public interface UsuarioRepository  extends JpaRepository<Usuario, Long> {
 
     @Query("SELECT ic.facebook FROM Usuario u JOIN Cuenta c ON u.cuenta.Id = c.Id JOIN InformacionConductor ic ON u.id = ic.usuario.id WHERE c.Id = ?1")
     String obtenerFbPorCuenta(Long usuarioId);
+
+
 }
 
